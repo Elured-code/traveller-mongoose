@@ -1,3 +1,4 @@
+import json
 from random import sample
 import pytest
 from src.TR_MGT_Mainworld import mainWorld
@@ -10,7 +11,7 @@ def sample_set():
 
 
 
-    for i in range(1, 10000):
+    for i in range(1, 100):
         m = mainWorld(str(i))
         m.loc = '0000'
         m.genWorld()
@@ -109,6 +110,17 @@ def test_mainWorld_giants(sample_set):
 
 def test_mainWorld_bases(sample_set):
     pass
+
+def test_mainWorld_valid_JSON(sample_set):
+    '''Test that the generated mainworld JSON file is valid'''
+    for sample in sample_set:
+        jsondoc = sample.writemainWorldJSON()
+        try:
+            json.loads(jsondoc)
+        except ValueError as err:
+            assert False
+        else:
+            assert True
 
 
 

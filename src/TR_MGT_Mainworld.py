@@ -410,7 +410,7 @@ class mainWorld:
             if self.pop == 0: thisFactionGovType = 0
             logging.debug("Faction %s government type roll = %s", y+1, thisFactionGovType)
             if thisFactionGovType < 0: thisFactionGovType = 0
-            factionDetail = {"Type": TR_Constants.GOVERNMENTS[thisFactionGovType], "Strength": thisFactionStrength}
+            factionDetail = {"Faction ID": y+1, "Type": TR_Constants.GOVERNMENTS[thisFactionGovType], "Strength": thisFactionStrength}
             factions.append(factionDetail)
 
         logging.info("Factions determined: %s", factions)
@@ -649,7 +649,6 @@ class mainWorld:
         mainWorldJSON['Hydrographics'] = self.hyd
         mainWorldJSON['Population'] = self.pop
         mainWorldJSON['Goverment'] = self.gov
-        mainWorldJSON['Government Factions'] = self.factions
         mainWorldJSON['Law Level'] = self.law
         mainWorldJSON['Tech Level'] = self.tlv
         mainWorldJSON['Bases'] = self.bases                
@@ -657,6 +656,15 @@ class mainWorld:
         mainWorldJSON['Population Modifier'] = self.pMod
         mainWorldJSON['Planetoid Belts'] = self.nbelts
         mainWorldJSON['Gas Giants'] = self.ngiants
+        
+        # Add extension data here
+
+        extensionData = {}
+        extensionData['Government Factions'] = self.factions
+        extensionData['PBG Data'] = {'Population Multiplier': self.pMod, 'Belts': self.nbelts, 'Giants': self.ngiants}
+
+        mainWorldJSON['Extension Data'] = extensionData
+
 
         # Assemble the document parts
 
