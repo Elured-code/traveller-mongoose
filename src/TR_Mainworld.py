@@ -72,6 +72,10 @@ class mainWorld(ABC):
         return self.__bases
 
     @abc.abstractproperty
+    def belts(self):
+        return self.__belts
+
+    @abc.abstractproperty
     def giants(self):
         return self.__giants
 
@@ -123,6 +127,14 @@ class mainWorld(ABC):
     @starPort.setter
     def starPort(self, starPort):
         self.__starPort = starPort
+
+    @belts.setter
+    def belts(self, belts):
+        self.__belts = belts
+
+    @giants.setter
+    def giants(self, giants):
+        self.__giants = giants
 
     @bases.setter
     def bases(self, bases):

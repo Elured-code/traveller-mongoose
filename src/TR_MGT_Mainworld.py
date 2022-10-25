@@ -3,6 +3,7 @@ import logging
 import math
 from src.utils import TR_Constants, TR_MGT_Constants
 from src.utils.TR_Support import D6Roll, D6Rollx2, D6Rollx3
+import TR_Mainworld
 
 # Configure logging
 
@@ -18,7 +19,7 @@ logger.setLevel(logging.CRITICAL)
 # mainWorld class - holds the world details as defined in the CE SRD
 
 
-class mainWorld:
+class mainWorld(TR_Mainworld.mainWorld):
 
     # Define properties
 
@@ -79,8 +80,16 @@ class mainWorld:
         return self.__travelZone
 
     @property
+    def belts(self):
+        return self.__belts
+
+    @property
     def nbelts(self):
         return self.__nbelts
+
+    @property
+    def giants(self):
+        return self.__giants
 
     @property
     def ngiants(self):
@@ -219,6 +228,10 @@ class mainWorld:
     def travelZone(self, travelZone):
         self.__travelZone = travelZone
 
+    @belts.setter
+    def belts(self, belts):
+        self.__belts = belts
+
     @nbelts.setter
     def nbelts(self, nbelts):
         self.__nbelts = nbelts
@@ -230,6 +243,10 @@ class mainWorld:
             self.__nbelts = 3
             logger.info('Number of planetoid belts %s is out of bounds.  \
                         Setting to %s', nbelts, self.__nbelts)
+
+    @giants.setter
+    def giants(self, giants):
+        self.__giants = giants
 
     @ngiants.setter
     def ngiants(self, ngiants):
@@ -667,6 +684,20 @@ class mainWorld:
         logger.info('Travel zone set to %s', travelZone)
 
         self.travelZone = travelZone
+
+    def gen_belts(self, roll):
+        if roll >= 10:
+            belts = True
+        else:
+            belts = False
+        self.__belts = belts
+
+    def gen_giants(self, roll):
+        if roll >= 7:
+            giants = True
+        else:
+            giants = False
+        self.__giants = giants
 
     def gen_nbelts(self, roll, roll2):
         '''Takes 2 x dice rolls (roll1, roll2) and determines the number of
