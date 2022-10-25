@@ -3,7 +3,7 @@ import logging
 import math
 from src.utils import TR_Constants, TR_MGT_Constants
 from src.utils.TR_Support import D6Roll, D6Rollx2, D6Rollx3
-import TR_Mainworld
+import src.TR_Mainworld
 
 # Configure logging
 
@@ -19,7 +19,7 @@ logger.setLevel(logging.CRITICAL)
 # mainWorld class - holds the world details as defined in the CE SRD
 
 
-class mainWorld(TR_Mainworld.mainWorld):
+class mainWorld(src.TR_Mainworld.mainWorld):
 
     # Define properties
 
