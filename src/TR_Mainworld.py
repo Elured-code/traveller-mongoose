@@ -5,6 +5,8 @@
     systems using an object factory
 '''
 
+import abc
+from abc import ABC, abstractmethod
 import logging
 
 # Configure logging
@@ -21,75 +23,63 @@ logger.setLevel(logging.CRITICAL)
 # mainWorld abstract class
 
 
-class mainWorld:
+class mainWorld(ABC):
 
     # Define properties
 
-    @property
+    @abc.abstractproperty
     def worldname(self):
         return self.__worldname
 
-    @property
+    @abc.abstractproperty
     def loc(self):
         return self.__loc
 
-    @property
+    @abc.abstractproperty
     def siz(self):
         return self.__siz
 
-    @property
+    @abc.abstractproperty
     def atm(self):
         return self.__atm
 
-    @property
-    def temperature(self):
-        return self.__temperature
-
-    @property
+    @abc.abstractproperty
     def hyd(self):
         return self.__hyd
 
-    @property
+    @abc.abstractproperty
     def pop(self):
         return self.__pop
 
-    @property
+    @abc.abstractproperty
     def gov(self):
         return self.__gov
 
-    @property
-    def factions(self):
-        return self.__factions
-
-    @property
+    @abc.abstractproperty
     def law(self):
         return self.__law
 
-    @property
+    @abc.abstractproperty
     def tlv(self):
         return self.__tlv
 
-    @property
+    @abc.abstractproperty
     def starPort(self):
         return self.__starPort
 
-    @property
+    @abc.abstractproperty
     def bases(self):
         return self.__bases
 
-    @property
+    @abc.abstractproperty
+    def giants(self):
+        return self.__giants
+
+    @abc.abstractproperty
     def travelZone(self):
         return self.__travelZone
 
-    @property
-    def nbelts(self):
-        return self.__nbelts
-
-    @property
-    def ngiants(self):
-        return self.__ngiants
-
-    @property
+    @abc.abstractproperty
     def tradecodes(self):
         return self.__tradecodes
 
@@ -110,10 +100,6 @@ class mainWorld:
     def atm(self, atm):
         self.__atm = atm
 
-    @temperature.setter
-    def temperature(self, temperature):
-        self.__temperature = temperature
-
     @hyd.setter
     def hyd(self, hyd):
         self.__hyd = hyd
@@ -125,10 +111,6 @@ class mainWorld:
     @gov.setter
     def gov(self, gov):
         self.__gov = gov
-
-    @factions.setter
-    def factions(self, factions):
-        self.__factions = factions
 
     @law.setter
     def law(self, law):
@@ -149,14 +131,6 @@ class mainWorld:
     @travelZone.setter
     def travelZone(self, travelZone):
         self.__travelZone = travelZone
-
-    @nbelts.setter
-    def nbelts(self, nbelts):
-        self.__nbelts = nbelts
-
-    @ngiants.setter
-    def ngiants(self, ngiants):
-        self.__ngiants = ngiants
 
     @tradecodes.setter
     def tradecodes(self, tradecodes):
@@ -181,59 +155,69 @@ class mainWorld:
 
     # Methods to randmomly generate mainworld properties
 
+    @abstractmethod
     def gen_siz(self, roll):
         pass
 
+    @abstractmethod
     def gen_atm(self, roll):
         pass
 
+    @abstractmethod
     def gen_temperature(self, roll):
         pass
 
+    @abstractmethod
     def gen_hyd(self, roll):
         pass
 
+    @abstractmethod
     def gen_pop(self, roll):
         pass
 
+    @abstractmethod
     def gen_gov(self, roll):
         pass
 
-    def gen_factions(self, roll):
-        pass
-
-    def gen_pMod(self, roll):
-        pass
-
+    @abstractmethod
     def gen_law(self, roll):
         pass
 
+    @abstractmethod
     def gen_starPort(self, roll):
         pass
 
+    @abstractmethod
     def gen_tlv(self, roll, tlcap):
         pass
 
+    @abstractmethod
     def gen_bases(self):
         pass
 
+    @abstractmethod
     def gen_travelZone(self, roll, isRandom):
         pass
 
-    def gen_nbelts(self, roll, roll2):
+    @abstractmethod
+    def gen_belts(self, roll):
         pass
 
-    def gen_ngiants(self, roll1, roll2):
+    @abstractmethod
+    def gen_giants(self, roll1, roll2):
         pass
 
+    @abstractmethod
     def gen_tradecodes(self):
         pass
 
+    @abstractmethod
     def writemainWorldJSON(self):
         pass
 
 # Randomly generate a mainworld object
 
+    @abstractmethod
     def genWorld(self):
         pass
 
