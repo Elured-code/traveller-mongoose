@@ -86,6 +86,10 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def tradecodes(self):
         return self.__tradecodes
 
+    @property
+    def allegiance(self):
+        return self.__allegiance
+
 # Define setters, including checks
     @worldname.setter
     def worldname(self, worldname):
@@ -223,6 +227,10 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def tradecodes(self, tradecodes):
         self.__tradecodes = tradecodes
 
+    @allegiance.setter
+    def allegiance(self, allegiance):
+        self.__allegiance = allegiance
+
 # Initialise the world class
 
     def __init__(self, wName):
@@ -281,9 +289,11 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         returnstr += self.travelZone
         returnstr += "  "
 
-        # Add space for 2 character allegiance data
+        # Add space for 2 character allegiance data - this will be improved
+        # at a later date to match T5 requirements (probably)
 
-        returnstr += "    "
+        returnstr += self.allegiance
+        returnstr += "  "
 
         # Star(s) type will go here
 
@@ -721,6 +731,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         mainWorldJSON['Trade Codes'] = self.tradecodes
         mainWorldJSON['Planetoid Belts'] = self.belts
         mainWorldJSON['Gas Giants'] = self.giants
+        mainWorldJSON['Allegiance'] = self.allegiance
 
         # Add extension data here
 
@@ -759,6 +770,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         self.gen_belts(D6Rollx2())
         self.gen_giants(D6Rollx2())
         self.gen_tradecodes()
+        self.allegiance = 'Na'
 
 # Only execute if this code is called directly - used proimarily to debug
 # output values
