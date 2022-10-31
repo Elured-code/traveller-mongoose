@@ -224,7 +224,7 @@ class mainWorld(ABC):
         pass
 
     @abstractmethod
-    def writemainWorldJSON(self):
+    def createMainWorldJSON(self):
         pass
 
 # Randomly generate a mainworld object
@@ -232,15 +232,3 @@ class mainWorld(ABC):
     @abstractmethod
     def genWorld(self):
         pass
-
-# Only execute if this code is called directly - used proimarily to debug
-# output values
-
-
-if __name__ == '__main__':
-    w = mainWorld('Aworld')
-    w.loc = "0101"
-    w.genWorld()
-
-    print(w)
-    print(w.writemainWorldJSON())

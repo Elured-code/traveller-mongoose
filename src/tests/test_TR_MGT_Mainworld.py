@@ -108,21 +108,15 @@ def test_mainWorld_population_mod(sample_set):
 
 
 def test_mainWorld_belts(sample_set):
-    '''Test that the number of planetoid belts is valid'''
+    '''Test for valied values for planetoid belts'''
     for sample in sample_set:
-        assert sample.nbelts in range(0, 10)
-
-
-def test_mainWorld_giants(sample_set):
-    '''Test that the number of planetoid belts is valid'''
-    for sample in sample_set:
-        assert sample.ngiants in range(0, 10)
+        assert sample.belts in (True, False)
 
 
 def test_mainWorld_valid_JSON(sample_set):
     '''Test that the generated mainworld JSON file is valid'''
     for sample in sample_set:
-        jsondoc = sample.writemainWorldJSON()
+        jsondoc = sample.createMainWorldJSON()
         try:
             json.loads(jsondoc)
         except ValueError:

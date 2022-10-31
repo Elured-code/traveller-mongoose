@@ -19,23 +19,8 @@ TR_SYSTEM_EDITION = 2
 TR_SYSTEM_VERSION = 2022
 TR_SYSTEM_EXTENSIONS = [
     {
-        "Extension Name": "Random Travel Zone Generation",
-        "Extension Author": "Michael Bailey",
-        "Extension Version": 1,
-        "Extension Date": "20221003"
-    },
-    {
-        "Extension Name": "pMod Generation",
-        "Extension Author": "Michael Bailey",
-        "Extension Version": 1,
-        "Extension Date": "20221003"
-    },
-    {
-        "Extension Name": "Giant and Belt count Generation",
-        "Extension Author": "Michael Bailey",
-        "Extension Version": 1,
-        "Extension Date": "20221003"
     }
+
 ]
 
 UWPCODETABLE = {0: "0", 1: "1", 2: "2",

@@ -1,6 +1,5 @@
 import json
 import logging
-import math
 from src.utils import TR_Constants, TR_MGT_Constants
 from src.utils.TR_Support import D6Roll, D6Rollx2, D6Rollx3
 import src.TR_Mainworld
@@ -56,10 +55,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         return self.__gov
 
     @property
-    def factions(self):
-        return self.__factions
-
-    @property
     def law(self):
         return self.__law
 
@@ -84,16 +79,8 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         return self.__belts
 
     @property
-    def nbelts(self):
-        return self.__nbelts
-
-    @property
     def giants(self):
         return self.__giants
-
-    @property
-    def ngiants(self):
-        return self.__ngiants
 
     @property
     def tradecodes(self):
@@ -185,10 +172,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         else:
             self.__gov = gov
 
-    @factions.setter
-    def factions(self, factions):
-        self.__factions = factions
-
     @law.setter
     def law(self, law):
         if law < 0:
@@ -232,33 +215,9 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def belts(self, belts):
         self.__belts = belts
 
-    @nbelts.setter
-    def nbelts(self, nbelts):
-        self.__nbelts = nbelts
-        if nbelts < 0:
-            self.__nbelts = 0
-            logger.info('Number of planetoid belts %s is out of bounds.  \
-                        Setting to %s', nbelts, self.__nbelts)
-        if nbelts > 3:
-            self.__nbelts = 3
-            logger.info('Number of planetoid belts %s is out of bounds.  \
-                        Setting to %s', nbelts, self.__nbelts)
-
     @giants.setter
     def giants(self, giants):
         self.__giants = giants
-
-    @ngiants.setter
-    def ngiants(self, ngiants):
-        self.__ngiants = ngiants
-        if ngiants < 0:
-            self.__ngiants = 0
-            logger.info('Number of gas giants %s is out of bounds.  \
-                        Setting to %s', ngiants, self.__ngiants)
-        if ngiants > 4:
-            self.__ngiants = 4
-            logger.info('Number of gas giants %s is out of bounds.  \
-                        Setting to %s', ngiants, self.__ngiants)
 
     @tradecodes.setter
     def tradecodes(self, tradecodes):
@@ -321,11 +280,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         returnstr += "    "
         returnstr += self.travelZone
         returnstr += "  "
-
-        # Add the PBG data
-
-        returnstr += "  " + str(self.pMod) + str(self.nbelts) + \
-            str(self.ngiants)
 
         # Add space for 2 character allegiance data
 
@@ -451,61 +405,46 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         logger.info('Result = %s', x)
         self.gov = x
 
-    def gen_factions(self, roll):
-        '''Determine the number and strength of factions in a mainworld
-            government (Core Rules 2022 Update p254)'''
+    # def gen_factions(self, roll):
+    #     '''Determine the number and strength of factions in a mainworld
+    #         government (Core Rules 2022 Update p254)'''
 
-        logger.info('Generating factions for %s', self.worldname)
-        factions = []
+    #     logger.info('Generating factions for %s', self.worldname)
+    #     factions = []
 
-        # First get the number of factions
+    #     # First get the number of factions
 
-        x = math.floor(roll / 2)
-        if self.gov in [0, 7]:
-            x += 1
-        if self.gov >= 10:
-            x -= 1
+    #     x = math.floor(roll / 2)
+    #     if self.gov in [0, 7]:
+    #         x += 1
+    #     if self.gov >= 10:
+    #         x -= 1
 
-        logger.info('Number of factions = %s', x)
+    #     logger.info('Number of factions = %s', x)
 
-        # Now determine the government type and strength of each faction
-        # and store the details
+    #     # Now determine the government type and strength of each faction
+    #     # and store the details
 
-        for y in range(x):
-            thisFactionStrength = D6Rollx2()
-            logging.debug("Faction %s strength = %s", y + 1,
-                          thisFactionStrength)
+    #     for y in range(x):
+    #         thisFactionStrength = D6Rollx2()
+    #         logging.debug("Faction %s strength = %s", y + 1,
+    #                       thisFactionStrength)
 
-            thisFactionGovType = D6Rollx2() - 7 + self.pop
-            if self.pop == 0:
-                thisFactionGovType = 0
-            logging.debug("Faction %s government type roll = %s", y+1,
-                          thisFactionGovType)
-            if thisFactionGovType < 0:
-                thisFactionGovType = 0
-            factionDetail = {"Faction ID": y+1,
-                             "Type":
-                             TR_Constants.GOVERNMENTS[thisFactionGovType],
-                             "Strength": thisFactionStrength}
-            factions.append(factionDetail)
+    #         thisFactionGovType = D6Rollx2() - 7 + self.pop
+    #         if self.pop == 0:
+    #             thisFactionGovType = 0
+    #         logging.debug("Faction %s government type roll = %s", y+1,
+    #                       thisFactionGovType)
+    #         if thisFactionGovType < 0:
+    #             thisFactionGovType = 0
+    #         factionDetail = {"Faction ID": y+1,
+    #                          "Type":
+    #                          TR_Constants.GOVERNMENTS[thisFactionGovType],
+    #                          "Strength": thisFactionStrength}
+    #         factions.append(factionDetail)
 
-        logging.info("Factions determined: %s", factions)
-        self.factions = factions
-
-    def gen_pMod(self, roll):
-        '''Takes a dice roll (roll) and determines the population multiplier
-            value (self.pMod)'''
-
-        logger.info('Generating population multiplier for %s', self.worldname)
-        x = roll - 2
-        if self.pop > 0 and x < 1:
-            x = 1
-        if self.pop == 0:
-            x = 0
-        if x == 10:
-            x = 9
-        logger.info('Result = %s', x)
-        self.pMod = x
+    #     logging.info("Factions determined: %s", factions)
+    #     self.factions = factions
 
     def gen_law(self, roll):
         '''Takes a dice roll (roll) and determines the law level value
@@ -699,42 +638,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
             giants = False
         self.__giants = giants
 
-    def gen_nbelts(self, roll, roll2):
-        '''Takes 2 x dice rolls (roll1, roll2) and determines the number of
-            planetoid belts as a function of size (self.siz)'''
-
-        logger.info('Generating planetoid belts for %s', self.worldname)
-
-        # Determine the presence of planetoid belts
-
-        nbelts = 0
-        if roll >= 4:
-            nbelts = roll2 - 3
-            if self.__siz == 0 and nbelts < 1:
-                nbelts = 1
-                logger.info('Mainworld size is 0 but no belts present.  \
-                    Setting number of belts to %s', nbelts)
-
-        logger.info('Result = %s', nbelts)
-        self.nbelts = nbelts
-
-    def gen_ngiants(self, roll1, roll2):
-        '''Takes 2 x dice rolls (roll1, roll2) and determines the number of
-            gas giants'''
-
-        logger.info('Generating gas giants for %s', self.worldname)
-
-        # Determine the presence of gas giants
-
-        if D6Rollx2() >= 5:
-            ngiants = (D6Roll() - 2)
-            if ngiants < 1:
-                ngiants = 1
-        else:
-            ngiants = 0
-        logger.info('Result = %s', ngiants)
-        self.ngiants = ngiants
-
     def gen_tradecodes(self):
         '''Determines the mainworld trade codes from attribute values'''
 
@@ -786,8 +689,8 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         logger.info('Generated trade codes = %s', tcode)
         self.tradecodes = tcode
 
-    def writemainWorldJSON(self):
-        '''Write mainworld to a JSON document'''
+    def createMainWorldJSON(self):
+        '''Create a JSON string that represents the mainworld data'''
 
         outputJSON = {}
         mainWorldJSON = {}
@@ -816,17 +719,12 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         mainWorldJSON['Tech Level'] = self.tlv
         mainWorldJSON['Bases'] = self.bases
         mainWorldJSON['Trade Codes'] = self.tradecodes
-        mainWorldJSON['Population Modifier'] = self.pMod
-        mainWorldJSON['Planetoid Belts'] = self.nbelts
-        mainWorldJSON['Gas Giants'] = self.ngiants
+        mainWorldJSON['Planetoid Belts'] = self.belts
+        mainWorldJSON['Gas Giants'] = self.giants
 
         # Add extension data here
 
         extensionData = {}
-        extensionData['Government Factions'] = self.factions
-        extensionData['PBG Data'] = {'Population Multiplier': self.pMod,
-                                     'Belts': self.nbelts,
-                                     'Giants': self.ngiants}
 
         mainWorldJSON['Extension Data'] = extensionData
 
@@ -852,16 +750,14 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         self.gen_temperature(D6Rollx2())
         self.gen_hyd(D6Rollx2())
         self.gen_pop(D6Rollx2())
-        self.gen_pMod(D6Rollx2())
         self.gen_gov(D6Rollx2())
-        self.gen_factions(D6Rollx2())
         self.gen_law(D6Rollx2())
         self.gen_starPort(D6Rollx2())
         self.gen_tlv(D6Roll(), TR_MGT_Constants.TL_CAP)
         self.gen_bases()
         self.gen_travelZone(D6Rollx2, True)
-        self.gen_nbelts(D6Rollx2(), D6Roll())
-        self.gen_ngiants(D6Rollx2(), D6Roll())
+        self.gen_belts(D6Rollx2())
+        self.gen_giants(D6Rollx2())
         self.gen_tradecodes()
 
 # Only execute if this code is called directly - used proimarily to debug
@@ -873,5 +769,16 @@ if __name__ == '__main__':
     w.loc = "0101"
     w.genWorld()
 
-    print(w)
-    print(w.writemainWorldJSON())
+    # Test write JSON to file
+
+    outJSON = w.createMainWorldJSON()
+
+    with open('output.json', 'w') as json_file:
+        json_file.write(outJSON)
+
+    # Test read JSON from file
+
+    with open('output.json', 'r') as json_file:
+        inputJSON = json_file.read()
+
+    print(inputJSON)
