@@ -1,3 +1,7 @@
+
+[![CodeQL](https://github.com/Elured-code/traveller-mongoose/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Elured-code/traveller-mongoose/actions/workflows/codeql-analysis.yml)
+
+
 # traveller-mongoose
 Python scripts for the Mongoose Traveller 2nd Edition 2022 Update
 
