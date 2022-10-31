@@ -98,15 +98,6 @@ def test_mainWorld_bases(sample_set):
 # trade code tests will go here if needed
 
 
-def test_mainWorld_population_mod(sample_set):
-    '''Test that the population modifier is 1 - 9, except when pop = 0'''
-    for sample in sample_set:
-        if sample.pop > 0:
-            assert sample.pMod > 0
-        else:
-            assert sample.pMod == 0
-
-
 def test_mainWorld_belts(sample_set):
     '''Test for valied values for planetoid belts'''
     for sample in sample_set:
