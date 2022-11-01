@@ -87,6 +87,10 @@ class mainWorld(ABC):
     def tradecodes(self):
         return self.__tradecodes
 
+    @abc.abstractproperty
+    def allegiance(self):
+        return self.__allegiance
+
 # Define setters, including checks
     @worldname.setter
     def worldname(self, worldname):
@@ -147,6 +151,10 @@ class mainWorld(ABC):
     @tradecodes.setter
     def tradecodes(self, tradecodes):
         self.__tradecodes = tradecodes
+
+    @allegiance.setter
+    def allegiance(self, allegiance):
+        self.__allegiance = allegiance
 
 # Initialise the world class
 

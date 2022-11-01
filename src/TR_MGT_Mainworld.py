@@ -708,6 +708,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         # Create the JSON header and populate
 
         headerJSON = {}
+        headerJSON['Object Type'] = 'Main World'
         headerJSON['Rules System'] = TR_MGT_Constants.TR_SYSTEM
         headerJSON['Edition'] = TR_MGT_Constants.TR_SYSTEM_EDITION
         headerJSON['Version'] = TR_MGT_Constants.TR_SYSTEM_VERSION

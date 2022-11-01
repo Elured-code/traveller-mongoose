@@ -53,3 +53,8 @@ def D1000Roll():
 def D100KRoll():
     random.seed()
     return random.randint(1, 100000)
+
+
+def FluxRoll():
+    random.seed()
+    return random.randint(1, 6) - random.randint(1, 6)
