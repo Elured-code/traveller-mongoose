@@ -231,9 +231,9 @@ class mainWorld(ABC):
     def gen_tradecodes(self):
         pass
 
-    @abstractmethod
-    def createMainWorldJSON(self):
-        pass
+    # @abstractmethod
+    # def createMainWorldJSON(self):
+    #     pass
 
 # Randomly generate a mainworld object
 

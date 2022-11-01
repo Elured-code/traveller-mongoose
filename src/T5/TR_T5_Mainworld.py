@@ -1,9 +1,9 @@
 import json
 import logging
-import this
+# import this
 from src.utils import TR_Constants, TR_T5_Constants
-from src.utils.TR_Support import D6Roll, D6Rollx2, D6Rollx3, FluxRoll, D10Roll
-import src.TR_Mainworld
+from src.utils.TR_Support import D6Rollx2, FluxRoll, D10Roll
+# import src.TR_Mainworld
 
 # Configure logging
 

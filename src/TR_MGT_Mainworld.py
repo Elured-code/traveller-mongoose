@@ -699,7 +699,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         logger.info('Generated trade codes = %s', tcode)
         self.tradecodes = tcode
 
-    def createMainWorldJSON(self):
+    def createMainWorldObject(self):
         '''Create a JSON string that represents the mainworld data'''
 
         outputJSON = {}
@@ -742,10 +742,9 @@ class mainWorld(src.TR_Mainworld.mainWorld):
 
         # Assemble the document parts
 
-        outputJSON['Contents'] = mainWorldJSON
+        outputJSON['World'] = mainWorldJSON
 
-        outjson = json.dumps(outputJSON, indent=4)
-        return outjson
+        return outputJSON
 
 # Randomly generate a mainworld object
 
@@ -784,14 +783,12 @@ if __name__ == '__main__':
 
     # Test write JSON to file
 
-    outJSON = w.createMainWorldJSON()
-
     with open('output.json', 'w') as json_file:
-        json_file.write(outJSON)
+        json_file.write(json.dumps(w.createMainWorldObject(), indent=4))
 
-    # Test read JSON from file
+    # # Test read JSON from file
 
-    with open('output.json', 'r') as json_file:
-        inputJSON = json_file.read()
+    # with open('output.json', 'r') as json_file:
+    #     inputJSON = json_file.read()
 
-    print(inputJSON)
+    # print(inputJSON)
