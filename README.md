@@ -10,7 +10,7 @@ Python scripts for the Mongoose Traveller 2nd Edition 2022 Update
 - utils\TR_Constants.py:        Supporting constants
 - utils\TR_MGT_Constants:       Supporting constants (Mongoose Traveller)
 
-# COPYRIGHT INFORMATION
+### COPYRIGHT INFORMATION
 
 The Traveller game in all forms is owned by Far Future Enterprises. 
 Copyright 1977 - 2022 Far Future Enterprises. 
