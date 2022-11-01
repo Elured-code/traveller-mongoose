@@ -107,7 +107,7 @@ def test_mainWorld_belts(sample_set):
 def test_mainWorld_valid_JSON(sample_set):
     '''Test that the generated mainworld JSON file is valid'''
     for sample in sample_set:
-        jsondoc = sample.createMainWorldJSON()
+        jsondoc = json.dumps(sample.createMainWorldObject(), indent=4)
         try:
             json.loads(jsondoc)
         except ValueError:
