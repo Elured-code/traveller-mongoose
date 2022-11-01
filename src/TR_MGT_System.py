@@ -1,7 +1,7 @@
 # from os import system
 from src.utils import TR_MGT_Constants
 from src.utils.TR_Support import D6Rollx2
-import TR_MGT_Mainworld
+from src import TR_MGT_Mainworld
 import json
 
 
@@ -12,12 +12,20 @@ class System:
         return self.__systemName
 
     @property
+    def systemLocation(self):
+        return self.__systemLocation
+
+    @property
     def systemType(self):
         return self.__systemType
 
     @systemName.setter
     def systemName(self, systemName):
         self.__systemName = systemName
+
+    @systemLocation.setter
+    def systemLocation(self, systemLocation):
+        self.__systemLocation = systemLocation
 
     @systemType.setter
     def systemType(self, systemType):
@@ -35,7 +43,16 @@ class System:
         self.systemName = sName
 
     def gen_systemType(self, roll):
-        self.__systemType = TR_MGT_Constants.SYSTEM_TYPE[roll]
+        if roll == 2:
+            x = D6Rollx2()
+            if x == 2:
+                y = D6Rollx2()
+                self.systemType = \
+                    TR_MGT_Constants.HIGHLY_UNUSUAL_SYSTEM_TYPE[y]
+            else:
+                self.systemType = TR_MGT_Constants.SPECIAL_SYSTEM_TYPE[x]
+        else:
+            self.__systemType = TR_MGT_Constants.SYSTEM_TYPE[roll]
 
     def gen_MGT_System(self):
         self.gen_systemType(D6Rollx2())
@@ -60,6 +77,7 @@ class System:
         # Now write the system data to a dictionary object
 
         systemJSON['System Name'] = self.systemName
+        systemJSON['System Location'] = self.systemLocation
         systemJSON['System Type'] = self.systemType
 
         # Add extension data here
@@ -83,8 +101,9 @@ class System:
 if __name__ == '__main__':
     s = System('Test System')
     s.gen_MGT_System()
+    s.systemLocation = '0101'
 
     w = TR_MGT_Mainworld.mainWorld(s.systemName)
     w.genWorld()
-    w.loc = '0101'
+    w.loc = s.systemLocation
     print(json.dumps(s.createSystemObject(), indent=4))
