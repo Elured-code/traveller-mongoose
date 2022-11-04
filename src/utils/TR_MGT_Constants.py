@@ -43,7 +43,7 @@ SYSTEM_TYPE = {2: "SPECIAL",
                12: "MULTIPLE"}
 
 SPECIAL_SYSTEM_TYPE = {2: "HIGHLY UNUSUAL",
-                       3: "PREGIANT",
+                       3: "PRE-GIANT",
                        4: "BROWN DWARF",
                        5: "BROWN DWARF",
                        6: "EMPTY",
@@ -86,6 +86,58 @@ STAR_TYPES_ABO = {1: "A",
                   4: "B",
                   5: "B",
                   6: "O"}
+
+MAIN_SEQ_CARDINALITY = ['O', 'B', 'A', 'F', 'G', 'K', 'M']
+
+# This is new, not in the DSE handbook explicitly
+
+MULTIPLE_SYSTEM_GEOMETRY = {
+    1: "QUAD C, D+C",
+    2: "QUAD C, D+C",
+    3: "QUAD C, D+C",
+    4: "QUAD D+C, D",
+    5: "QUAD D+C, D",
+    6: "QUAD D, D, D"
+}
+
+# This is new, not in the DSE handbook explicitly
+
+PRE_GIANT_SYSTEM_GEOMETRY = {2: "BINARY C",
+                             3: "TRINARY D+C",
+                             4: "BINARY D",
+                             5: "BINARY D",
+                             6: "SOLO",
+                             7: "SOLO",
+                             8: "SOLO",
+                             9: "SOLO",
+                             10: "BINARY D",
+                             11: "TRINARY D+C",
+                             12: "TRINARY C+D"}
+
+# This is new, not in the DSE handbook explicitly
+
+GIANT_SYSTEM_GEOMETRY = {2: "TRINARY D+C",
+                         3: "TRINARY D+C",
+                         4: "BINARY D",
+                         5: "BINARY D",
+                         6: "SOLO",
+                         7: "SOLO",
+                         8: "SOLO",
+                         9: "SOLO",
+                         10: "BINARY D",
+                         11: "BINARY D",
+                         12: "TRINARY D+C"}
+
+# This is new, not in the DSE handbook explicitly
+
+BROWN_DWARF_SYSTEM_GEOMETRY = {
+    1: "TRINARY C+D",
+    2: "BINARY C",
+    3: "SOLO",
+    4: "SOLO",
+    5: "BINARY D",
+    6: "TRINARY C+D"
+}
 
 # Starport codes
 

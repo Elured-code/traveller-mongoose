@@ -1,6 +1,6 @@
 # from os import system
 from src.utils import TR_MGT_Constants
-from src.utils.TR_Support import D6Rollx2
+from src.utils.TR_Support import D6Roll, D6Rollx2
 from src import TR_MGT_Mainworld
 import json
 
@@ -19,6 +19,14 @@ class System:
     def systemType(self):
         return self.__systemType
 
+    @property
+    def systemGeometry(self):
+        return self.__systemGeometry
+
+    @property
+    def systemStars(self):
+        return self.__systemStars
+
     @systemName.setter
     def systemName(self, systemName):
         self.__systemName = systemName
@@ -31,6 +39,14 @@ class System:
     def systemType(self, systemType):
         self.__systemType = systemType
 
+    @systemGeometry.setter
+    def systemGeometry(self, systemGeometry):
+        self.__systemGeometry = systemGeometry
+
+    @systemStars.setter
+    def systemStars(self, systemStars):
+        self.__systemStars = systemStars
+
     # Initialise the system class
 
     def __init__(self, sName):
@@ -41,6 +57,7 @@ class System:
         # Initialise variables
 
         self.systemName = sName
+        self.systemStars = []
 
     def gen_systemType(self, roll):
         if roll == 2:
@@ -54,8 +71,50 @@ class System:
         else:
             self.__systemType = TR_MGT_Constants.SYSTEM_TYPE[roll]
 
+    def gen_systemGeometry(self):
+        '''Generate system primary objects - these are normally
+           but not always stars'''
+
+        # First determine the system geometry, copying the system type for
+        # non-special types
+
+        if self.systemType in ['SOLO', 'BINARY C', 'BINARY D', 'TRINARY C+D',
+                               'TRINARY D+C']:
+            systemGeometry = self.systemType
+
+        # Multiple stars
+
+        elif self.systemType == 'MULTIPLE':
+            systemGeometry = \
+                TR_MGT_Constants.MULTIPLE_SYSTEM_GEOMETRY[D6Roll()]
+
+        # Now determine the system geometry for special types
+
+        # Pre-giant (subgiant) stars (Type IV)
+
+        elif self.systemType == 'PRE-GIANT':
+            systemGeometry = \
+                TR_MGT_Constants.PRE_GIANT_SYSTEM_GEOMETRY[D6Rollx2()]
+
+        # Giant stars - close companions are assumed to have been destroyed
+
+        elif self.systemType == 'GIANT':
+            systemGeometry = TR_MGT_Constants.GIANT_SYSTEM_GEOMETRY[D6Rollx2()]
+
+        # Brown dwarfs
+
+        elif self.systemType == 'BROWN DWARF':
+            systemGeometry = \
+                TR_MGT_Constants.BROWN_DWARF_SYSTEM_GEOMETRY[D6Roll()]
+
+        else:
+            systemGeometry = 'UNDER CONSTRUCTION'
+
+        self.systemGeometry = systemGeometry
+
     def gen_MGT_System(self):
         self.gen_systemType(D6Rollx2())
+        self.gen_systemGeometry()
 
     def createSystemObject(self):
         '''Create a JSON string that represents the system'''
@@ -79,6 +138,7 @@ class System:
         systemJSON['System Name'] = self.systemName
         systemJSON['System Location'] = self.systemLocation
         systemJSON['System Type'] = self.systemType
+        systemJSON['System Geometry'] = self.systemGeometry
 
         # Add extension data here
 
@@ -86,10 +146,14 @@ class System:
 
         systemJSON['Extension Data'] = extensionData
 
+        # Add the system main bodies (stars)
+
+        systemJSON['Stellar Objects'] = self.systemStars
+
         # Add any generated worlds
 
-        worldJSON = w.createMainWorldObject()
-        systemJSON['Worlds'] = [worldJSON]
+        # worldJSON = w.createMainWorldObject()
+        # systemJSON['Worlds'] = [worldJSON]
 
         # Assemble the document parts
 
