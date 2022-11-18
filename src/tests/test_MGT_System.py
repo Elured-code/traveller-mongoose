@@ -7,7 +7,7 @@ from src import TR_MGT_System
 def sample_set():
     '''Generate a sample set of systems'''
     set = []
-    for i in range(1, 100):
+    for i in range(1, 1000):
         s = TR_MGT_System.System(str(i))
         s.loc = '0000'
         s.gen_MGT_System()

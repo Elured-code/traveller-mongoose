@@ -66,9 +66,12 @@ HIGHLY_UNUSUAL_SYSTEM_TYPE = {2: "BLACK HOLE",
                               11: "HIGHLY COMPLEX",
                               12: "NEUTRON STAR"}
 
+# Amendment from the DSE handbook - add white dwarfs as potential
+# companions
+
 STAR_TYPES = {0: "Brown Dwarf",
               1: "Brown Dwarf",
-              2: "Brown Dwarf",
+              2: "White Dwarf",
               3: "M",
               4: "M",
               5: "M",
@@ -137,6 +140,17 @@ BROWN_DWARF_SYSTEM_GEOMETRY = {
     4: "SOLO",
     5: "BINARY D",
     6: "TRINARY C+D"
+}
+
+# This is new, not in the DSE handbook explicitly
+
+WHITE_DWARF_SYSTEM_GEOMETRY = {
+    1: "TRINARY D+C",
+    2: "BINARY D",
+    3: "SOLO",
+    4: "SOLO",
+    5: "SOLO",
+    6: "BINARY D"
 }
 
 # Starport codes

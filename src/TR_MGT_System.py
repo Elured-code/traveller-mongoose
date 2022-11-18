@@ -107,6 +107,20 @@ class System:
             systemGeometry = \
                 TR_MGT_Constants.BROWN_DWARF_SYSTEM_GEOMETRY[D6Roll()]
 
+        # Empty systems
+        # Note that these will need to be rerolled if the system is being
+        # generated from a mailworld
+
+        elif self.systemType == 'EMPTY':
+            systemGeometry = 'EMPTY'
+
+        # White dwarf stars - these stars do not have an inner system
+        # or close companion, so use their own geometry table in
+        # TR_MGT_Constants
+
+        elif self.systemType == 'WHITE DWARF':
+            pass
+
         else:
             systemGeometry = 'UNDER CONSTRUCTION'
 
