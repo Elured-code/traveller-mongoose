@@ -786,9 +786,9 @@ if __name__ == '__main__':
     with open('output.json', 'w') as json_file:
         json_file.write(json.dumps(w.createMainWorldObject(), indent=4))
 
-    # # Test read JSON from file
+    # Test read JSON from file
 
-    # with open('output.json', 'r') as json_file:
-    #     inputJSON = json_file.read()
+    with open('output.json', 'r') as json_file:
+        inputJSON = json_file.read()
 
-    # print(inputJSON)
+    print(inputJSON)
