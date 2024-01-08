@@ -16,26 +16,27 @@
 TR_SYSTEM = "Mongoose Traveller"
 TR_SYSTEM_EDITION = 2
 TR_SYSTEM_VERSION = 2022
-TR_SYSTEM_EXTENSIONS = [
-    {
-        "Extension Name": "Random Travel Zone Generation",
-        "Extension Author": "Michael Bailey",
-        "Extension Version": 1,
-        "Extension Date": "20221003"
-    }, 
-    {
-        "Extension Name": "pMod Generation",
-        "Extension Author": "Michael Bailey",
-        "Extension Version": 1,
-        "Extension Date": "20221003"
-    },
-    {
-        "Extension Name": "Giant and Belt count Generation",
-        "Extension Author": "Michael Bailey",
-        "Extension Version": 1,
-        "Extension Date": "20221003"
-    }
-]
+TR_SYSTEM_EXTENSIONS = []
+# TR_SYSTEM_EXTENSIONS = [
+#     {
+#         "Extension Name": "Random Travel Zone Generation",
+#         "Extension Author": "Michael Bailey",
+#         "Extension Version": 1,
+#         "Extension Date": "20221003"
+#     }, 
+#     {
+#         "Extension Name": "pMod Generation",
+#         "Extension Author": "Michael Bailey",
+#         "Extension Version": 1,
+#         "Extension Date": "20221003"
+#     },
+#     {
+#         "Extension Name": "Giant and Belt count Generation",
+#         "Extension Author": "Michael Bailey",
+#         "Extension Version": 1,
+#         "Extension Date": "20221003"
+#     }
+# ]
 
 UWPCODETABLE = {0: "0", 1: "1", 2: "2",
     3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "A", 11: "B", 12: "C", 13: "D", 14: "E", 15: "F", 16: "G", 17: "H", 18: "J", 19: "K", 20: "L", 21: "M" }
