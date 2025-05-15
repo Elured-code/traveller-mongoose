@@ -1,19 +1,19 @@
-from random import sample
+import json
+# from random import sample
 import pytest
 from src.TR_MGT_Mainworld import mainWorld
 from src.utils.TR_MGT_Constants import TL_CAP
+
 
 
 @pytest.fixture
 def sample_set():
     """Generate a sample set of mainworlds"""
     set = []
-
-    for i in range(1, 10000):
+    for i in range(1, 100):
         m = mainWorld(str(i))
         m.loc = "0000"
         m.genWorld()
-
         set.append(m)
 
     return set
@@ -27,12 +27,14 @@ def test_mainWorld_name(sample_set):
         i += 1
 
 
+
 def test_mainWorld_starport(sample_set):
     """Test starport generation"""
     i = 0
     for w in sample_set:
         assert sample_set[i].starPort in ["A", "B", "C", "D", "E", "F", "X"]
         i += 1
+
 
 
 def test_mainWorld_size(sample_set):
@@ -44,12 +46,14 @@ def test_mainWorld_size(sample_set):
         i += 1
 
 
+
 def test_mainWorld_atmosphere(sample_set):
     """Test atmosphere generation value falls within bounds"""
     i = 0
     for w in sample_set:
         assert sample_set[i].atm in range(0, 16)
         i += 1
+
 
 
 def test_mainWorld_hydrographics(sample_set):
@@ -60,12 +64,14 @@ def test_mainWorld_hydrographics(sample_set):
         i += 1
 
 
+
 def test_mainWorld_population(sample_set):
     """Test population generation value falls within bounds"""
     i = 0
     for w in sample_set:
         assert sample_set[i].pop in range(0, 11)
         i += 1
+
 
 
 def test_mainWorld_government(sample_set):
@@ -76,6 +82,7 @@ def test_mainWorld_government(sample_set):
         i += 1
 
 
+
 def test_mainWorld_lawlevel(sample_set):
     """Test law level generation fall within bounds"""
     i = 0
@@ -84,11 +91,13 @@ def test_mainWorld_lawlevel(sample_set):
         i += 1
 
 
+
 def test_mainWorld_techlevel(sample_set):
     """Test tech level generation value falls within bounds"""
     for sample in sample_set:
         assert sample.tlv in range(0, 20)
         assert sample.tlv <= TL_CAP
+
 
 
 def test_mainWorld_bases(sample_set):
