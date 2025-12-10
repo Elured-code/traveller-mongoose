@@ -6,8 +6,9 @@ from src.TR_MGT_Mainworld import MainWorld
 from src.utils.TR_MGT_Constants import TL_CAP
 # pylint: enable=invalid-name
 
-@pytest.fixture
-def pytest_configufre():
+# pylint: disable=unused-import
+
+def sample_set():
     """Generate a sample set of mainworlds"""
     new_set = []
     for i in range(1, 100):
@@ -16,92 +17,146 @@ def pytest_configufre():
         m.gen_world()
         new_set.append(m)
 
-    pytest.sample_set = new_set
+    return new_set
 
-def test_mainworld_name(sample_set):
+a_set = sample_set()
+
+def test_mainworld_name():
     """Test mainworld name assignment"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
-        assert w[i].worldname == str(i + 1)
+    for w in this_set:
+        assert w.world_name == str(i + 1)
         i += 1
 
 
 
-def test_mainworld_starport(sample_set):
+def test_mainworld_starport():
     """Test starport generation"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
-        assert w[i].starPort in ["A", "B", "C", "D", "E", "F", "X"]
+    for w in this_set:
+        assert w.star_port in ["A", "B", "C", "D", "E", "F", "X"]
         i += 1
 
 
 
-def test_mainworld_size(sample_set):
+def test_mainworld_size():
     """Test size generation"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
+    for w in this_set:
         print(str(i))
-        assert w[i].siz in range(0, 11)
+        assert w.siz in range(0, 11)
         i += 1
 
 
 
-def test_mainworld_atmosphere(sample_set):
+def test_mainworld_atmosphere():
     """Test atmosphere generation value falls within bounds"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
-        assert w[i].atm in range(0, 16)
+    for w in this_set:
+        assert w.atm in range(0, 16)
         i += 1
 
 
 
-def test_mainworld_hydrographics(sample_set):
+def test_mainworld_hydrographics():
     """Test hydrographics generation value falls within bounds"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
-        assert w[i].hyd in range(0, 11)
+    for w in this_set:
+        assert w.hyd in range(0, 11)
         i += 1
 
-
-
-def test_mainworld_population(sample_set):
+def test_mainworld_population():
     """Test population generation value falls within bounds"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
-        assert w[i].pop in range(0, 11)
+    for w in this_set:
+        assert w.pop in range(0, 11)
         i += 1
 
 
 
-def test_mainworld_government(sample_set):
+def test_mainworld_government():
     """Test government generation value falls within bounds"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
-        assert w[i].gov in range(0, 16)
+    for w in this_set:
+        assert w.gov in range(0, 16)
         i += 1
 
 
 
-def test_mainworld_lawlevel(sample_set):
+def test_mainworld_lawlevel():
     """Test law level generation fall within bounds"""
+
+    # Grab the sample set
+
+    this_set = a_set
+
     i = 0
-    for w in sample_set:
-        assert w[i].law in range(0, 16)
+    for w in this_set:
+        assert w.law in range(0, 16)
         i += 1
 
 
 
-def test_mainworld_techlevel(sample_set):
+def test_mainworld_techlevel():
     """Test tech level generation value falls within bounds"""
-    for sample in sample_set:
+
+    # Grab the sample set
+
+    this_set = a_set
+
+    for sample in this_set:
         assert sample.tlv in range(0, 20)
         assert sample.tlv <= TL_CAP
 
 
 
-def test_mainworld_bases(sample_set):
+def test_mainworld_bases():
     """Test base generation - ensure base code is 1 char only"""
-    for sample in sample_set:
+
+    # Grab the sample set
+
+    this_set = a_set
+
+    for sample in this_set:
         assert len(sample.bases) == 1
 
 
@@ -119,8 +174,13 @@ def test_mainworld_bases(sample_set):
 #         assert sample.nbelts in range(0, 10)
 
 
-def test_mainworld_giants(sample_set):
+def test_mainworld_giants():
     """Test if gas giants are generated correctly"""
-    for sample in sample_set:
-        assert sample.gas_giants in [True, False]
+
+    # Grab the sample set
+
+    this_set = a_set
+
+    for sample in this_set:
+        assert sample.giants in [True, False]
         
