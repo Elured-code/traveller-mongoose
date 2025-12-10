@@ -1,43 +1,32 @@
+# pylint: disable=invalid-name
 import json
 import logging
 from src.utils import TR_Constants, TR_MGT_Constants
 from src.utils.TR_Support import D6Roll, D6Rollx2, D6Rollx3
-import src.TR_Mainworld
+import src.TR_Mainworld as TR_Mainworld
+# pylint: enable=invalid-name
 
 # Configure logging
 
 logger = logging.getLogger()
 handler = logging.StreamHandler()
-<<<<<<< HEAD
-formatter = logging.Formatter(
-    "%(asctime)s %(name)-12s %(funcName)-20s %(levelname)-8s %(message)s",
-    "%d/%m/%Y %I:%M:%S %p",
-)
-=======
 formatter = logging.Formatter('%(asctime)s %(name)-12s %(funcName)-20s \
                                %(levelname)-8s %(message)s',
                               '%d/%m/%Y %I:%M:%S %p')
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.CRITICAL)
 
 # mainWorld class - holds the world details as defined in the CE SRD
 
-<<<<<<< HEAD
+class MainWorld(TR_Mainworld.MainWorld):
 
-class mainWorld:
-
-=======
-
-class mainWorld(src.TR_Mainworld.mainWorld):
-
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
     # Define properties
 
     @property
-    def worldname(self):
-        return self.__worldname
+    def world_name(self):
+        return self.__world_name
 
     @property
     def loc(self):
@@ -76,23 +65,16 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         return self.__tlv
 
     @property
-    def starPort(self):
-        return self.__starPort
+    def star_port(self):
+        return self.__star_port
 
     @property
     def bases(self):
         return self.__bases
 
     @property
-    def travelZone(self):
+    def travel_zone(self):
         return self.__travelZone
-<<<<<<< HEAD
-
-    @property
-    def nbelts(self):
-        return self.__nbelts
-=======
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
     @property
     def belts(self):
@@ -106,18 +88,13 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def tradecodes(self):
         return self.__tradecodes
 
-<<<<<<< HEAD
-    # Define setters, including checks
-
-=======
 # Define setters, including checks
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
-    @worldname.setter
-    def worldname(self, worldname):
+    @world_name.setter
+    def world_name(self, worldname):
         # if len(worldname) > 13:
         #     self.__worldname = worldname[0:13]
-        self.__worldname = worldname
-        logging.info("World name set to %s", self.__worldname)
+        self.__world_name = worldname
+        logging.info("World name set to %s", self.__world_name)
 
     @loc.setter
     def loc(self, loc):
@@ -130,19 +107,12 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def siz(self, siz):
         if siz < 0:
             self.__siz = 0
-<<<<<<< HEAD
-            logger.info("Size value %s out of bounds, setting to %s", siz, self.__siz)
-        elif siz > 10:
-            self.__siz = 10
-            logger.info("Size value %s out of bounds, setting to %s", siz, self.__siz)
-=======
             logger.info('Size value %s out of bounds, setting to %s',
                         siz, self.__siz)
         elif siz > 10:
             self.__siz = 10
             logger.info('Size value %s out of bounds, setting to %s',
                         siz, self.__siz)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         else:
             self.__siz = siz
 
@@ -150,37 +120,20 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def atm(self, atm):
         if atm < 0:
             self.__atm = 0
-<<<<<<< HEAD
-            logger.info(
-                "Atmosphere value %s out of bounds, setting to %s", atm, self.__atm
-            )
-        elif atm > 15:
-            self.__atm = 15
-            logger.info(
-                "Atmosphere value %s out of bounds, setting to %s", atm, self.__atm
-            )
-=======
             logger.info('Atmosphere value %s out of bounds, setting to %s',
                         atm, self.__atm)
         elif atm > 15:
             self.__atm = 15
             logger.info('Atmosphere value %s out of bounds, setting to %s',
                         atm, self.__atm)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         else:
             self.__atm = atm
 
     @temperature.setter
     def temperature(self, temperature):
         if temperature not in TR_MGT_Constants.TEMPERATURES:
-<<<<<<< HEAD
-            logger.error(
-                "Temperature value %s not valid, setting to TEMPERATE", temperature
-            )
-=======
             logger.error("Temperature value %s not valid, \
                         setting to TEMPERATE", temperature)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
             temperature = "TEMPERATE"
         self.__temperature = temperature
 
@@ -188,23 +141,12 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def hyd(self, hyd):
         if hyd < 0:
             self.__hyd = 0
-<<<<<<< HEAD
-            logger.info(
-                "Hydrographics value %s out of bounds, setting to %s", hyd, self.__hyd
-            )
-        elif hyd > 10:
-            self.__hyd = 10
-            logger.info(
-                "Hydrographics value %s out of bounds, setting to %s", hyd, self.__hyd
-            )
-=======
             logger.info('Hydrographics value %s out of bounds, setting to %s',
                         hyd, self.__hyd)
         elif hyd > 10:
             self.__hyd = 10
             logger.info('Hydrographics value %s out of bounds, setting to %s',
                         hyd, self.__hyd)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         else:
             self.__hyd = hyd
 
@@ -212,14 +154,8 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def pop(self, pop):
         if pop < 0:
             self.__pop = 0
-<<<<<<< HEAD
-            logger.info(
-                "Population value %s out of bounds, setting to %s", pop, self.__pop
-            )
-=======
             logger.info('Population value %s out of bounds, setting to %s',
                         pop, self.__pop)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         elif pop > 10:
             self.__pop = 10
         else:
@@ -229,22 +165,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def gov(self, gov):
         if gov < 0:
             self.__gov = 0
-<<<<<<< HEAD
-            logger.info(
-                "Government value %s out of bounds, setting to %s", gov, self.__gov
-            )
-        elif gov > 15:
-            self.__gov = 15
-            logger.info(
-                "Government value %s out of bounds, setting to %s", gov, self.__gov
-            )
-        else:
-            self.__gov = gov
-
-    @factions.setter
-    def factions(self, factions):
-        self.__factions = factions
-=======
             logger.info('Government value %s out of bounds, setting to %s',
                         gov, self.__gov)
         elif gov > 15:
@@ -253,29 +173,17 @@ class mainWorld(src.TR_Mainworld.mainWorld):
                         gov, self.__gov)
         else:
             self.__gov = gov
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
     @law.setter
     def law(self, law):
         if law < 0:
             self.__law = 0
-<<<<<<< HEAD
-            logger.info(
-                "Law level value %s out of bounds, setting to %s", law, self.__law
-            )
-        elif law > 15:
-            self.__law = 15
-            logger.info(
-                "Law level value %s out of bounds, setting to %s", law, self.__law
-            )
-=======
             logger.info('Law level value %s out of bounds, setting to %s', law,
                         self.__law)
         elif law > 15:
             self.__law = 15
             logger.info('Law level value %s out of bounds, setting to %s', law,
                         self.__law)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         else:
             self.__law = law
 
@@ -283,79 +191,27 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     def tlv(self, tlv):
         if tlv < 0:
             self.__tlv = 0
-<<<<<<< HEAD
-            logger.info(
-                "Tech level value %s out of bounds.  Setting to %s", tlv, self.__tlv
-            )
-=======
             logger.info('Tech level value %s out of bounds.  Setting to %s',
                         tlv, self.__tlv)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         else:
             self.__tlv = tlv
 
-    @starPort.setter
-    def starPort(self, starPort):
+    @star_port.setter
+    def star_port(self, starPort):
         if starPort in TR_Constants.STARPORTS:
-            self.__starPort = starPort
+            self.__star_port = starPort
         else:
-            self.__starPort = "-"
-<<<<<<< HEAD
-            logger.info(
-                "Invalid value %s for starport code.  Setting to %s",
-                starPort,
-                self.__starPort,
-            )
-=======
+            self.__star_port = "-"
             logger.info('Invalid value %s for starport code.  Setting to %s',
-                        starPort, self.__starPort)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+                        starPort, self.__star_port)
 
     @bases.setter
     def bases(self, bases):
         self.__bases = bases
 
-    @travelZone.setter
-    def travelZone(self, travelZone):
+    @travel_zone.setter
+    def travel_zone(self, travelZone):
         self.__travelZone = travelZone
-<<<<<<< HEAD
-
-    @nbelts.setter
-    def nbelts(self, nbelts):
-        self.__nbelts = nbelts
-        if nbelts < 0:
-            self.__nbelts = 0
-            logger.info(
-                "Number of planetoid belts %s is out of bounds.  Setting to %s",
-                nbelts,
-                self.__nbelts,
-            )
-        if nbelts > 3:
-            self.__nbelts = 3
-            logger.info(
-                "Number of planetoid belts %s is out of bounds.  Setting to %s",
-                nbelts,
-                self.__nbelts,
-            )
-
-    @ngiants.setter
-    def ngiants(self, ngiants):
-        self.__ngiants = ngiants
-        if ngiants < 0:
-            self.__ngiants = 0
-            logger.info(
-                "Number of gas giants %s is out of bounds.  Setting to %s",
-                ngiants,
-                self.__ngiants,
-            )
-        if ngiants > 4:
-            self.__ngiants = 4
-            logger.info(
-                "Number of gas giants %s is out of bounds.  Setting to %s",
-                ngiants,
-                self.__ngiants,
-            )
-=======
 
     @belts.setter
     def belts(self, belts):
@@ -364,21 +220,11 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     @giants.setter
     def giants(self, giants):
         self.__giants = giants
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
     @tradecodes.setter
     def tradecodes(self, tradecodes):
         self.__tradecodes = tradecodes
 
-<<<<<<< HEAD
-    # Initialise the world class
-
-    def __init__(self, wName):
-        """Takes a world name (wName) and initialises a mainworld object with that world name (self.worldname)"""
-
-        logger.debug("Initialising world object with name %s", wName)
-
-=======
 # Initialise the world class
 
     def __init__(self, wName):
@@ -387,10 +233,10 @@ class mainWorld(src.TR_Mainworld.mainWorld):
 
         logger.debug('Initialising world object with name %s', wName)
 
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         # Initialise variables
 
-        self.worldname = wName
+        super().__init__(wName)
+        self.world_name = wName
 
     # Display the mainworld object as a string
 
@@ -399,21 +245,17 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         # Capitalise the world name if it is a high population world
 
         if self.pop >= 9:
-            self.worldname = self.worldname.upper()
+            self.world_name = self.world_name.upper()
 
         # Build the UWP String from the values generated above
 
         # Pad the world name with strings to column 13
 
-<<<<<<< HEAD
-        temp_worldname = "{:11.11}".format(self.worldname) + " "
-=======
-        temp_worldname = "{:11.11}".format(self.worldname) + ' '
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+        temp_worldname = f"{self.world_name:11.11}" + ' '
 
         returnstr = temp_worldname
         returnstr += self.loc + " "
-        returnstr += self.starPort
+        returnstr += self.star_port
         returnstr += TR_Constants.UWPCODETABLE.get(self.siz)
         returnstr += TR_Constants.UWPCODETABLE.get(self.atm)
         returnstr += TR_Constants.UWPCODETABLE.get(self.hyd)
@@ -439,15 +281,8 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         # Add the travel zone
 
         returnstr += "    "
-        returnstr += self.travelZone
+        returnstr += self.travel_zone
         returnstr += "  "
-<<<<<<< HEAD
-
-        # Add the PBG data
-
-        # returnstr += "  " + str(self.pMod) + str(self.nbelts) + str(self.ngiants)
-=======
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         # Add space for 2 character allegiance data
 
@@ -460,54 +295,36 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     # Methods to randmomly generate mainworld properties
 
     def gen_siz(self, roll):
-<<<<<<< HEAD
-        """Takes a dice roll (roll) and determines the mainworld size value (self.siz)"""
-        logger.info("Generating size value for %s", self.worldname)
-=======
         '''Takes a dice roll (roll) and determines the mainworld
             size value (self.siz)'''
 
-        logger.info('Generating size value for %s', self.worldname)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+        logger.info('Generating size value for %s', self.world_name)
         x = roll - 2
         logger.debug("Result = %s", x)
         self.siz = x
 
     def gen_atm(self, roll):
-<<<<<<< HEAD
-        """Takes a dice roll (roll) and determines the mainworld atmosphere value (self.atm) as a function of size (self.siz)"""
-        logger.info("Generating atmosphere value for %s", self.worldname)
-        x = roll + self.siz - 7
-=======
         '''Takes a dice roll (roll) and determines the mainworld atmosphere
             value (self.atm) as a function of size (self.siz)'''
 
-        logger.info('Generating atmosphere value for %s', self.worldname)
+        logger.info('Generating atmosphere value for %s', self.world_name)
         x = roll + (self.siz - 7)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         if x < 0:
             x = 0
         elif x > 15:
             x = 15
         if self.siz == 0:
             x = 0
-<<<<<<< HEAD
-        logger.debug("Result = %s", x)
-        self.atm = x
-
-    def gen_temperature(self, roll):
-        """Generate the world temperature class from input parameters and a random roll"""
-        logger.info("Generating temperature value for %s", self.worldname)
-        modifider = 0
-=======
         logger.debug('Result = %s', x)
         self.atm = x
 
     def gen_temperature(self, roll):
         ''' Generate the world temperature class from input parameters and
             a random roll'''
-        logger.info("Generating temperature value for %s", self.worldname)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+        logger.info("Generating temperature value for %s", self.world_name)
+
+        temperature = 0
+
         if self.atm <= 1:
             modifier = 0
         elif self.atm in [2, 3]:
@@ -522,11 +339,8 @@ class mainWorld(src.TR_Mainworld.mainWorld):
             modifier = 2
         elif self.atm in [11, 12]:
             modifier = 6
-<<<<<<< HEAD
-=======
         else:
             modifier = 0
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         logger.debug("Roll = %s, Modifier = %s", roll, modifier)
 
@@ -547,15 +361,10 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         self.temperature = temperature
 
     def gen_hyd(self, roll):
-<<<<<<< HEAD
-        """Takes a dice roll (roll) and determines the mainworld hydrographics value (self.hyd) as a function of size (self.siz)"""
-        logger.info("Generating hydrographics value for %s", self.worldname)
-=======
         '''Takes a dice roll (roll) and determines the mainworld hydrographics
             value (self.hyd) as a function of size (self.siz)'''
 
-        logger.info('Generating hydrographics value for %s', self.worldname)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+        logger.info('Generating hydrographics value for %s', self.world_name)
         x = roll + self.siz - 7
 
         if self.siz == 0:
@@ -574,14 +383,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
             x = 0
         if x > 10:
             x = 10
-<<<<<<< HEAD
-        logger.debug("Result = %s", x)
-        self.hyd = x
-
-    def gen_pop(self, roll):
-        """Takes a dice roll (roll) and determines the mainworld population value (self.pop)
-        Note that in MGTv2 there are no modifiers for other attributes"""
-=======
         logger.debug('Result = %s', x)
         self.hyd = x
 
@@ -589,9 +390,8 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         '''Takes a dice roll (roll) and determines the mainworld population
             value (self.pop).
             Note that in MGTv2 there are no modifiers for other attributes'''
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
-        logger.info("Generating population value for %s", self.worldname)
+        logger.info("Generating population value for %s", self.world_name)
         x = roll - 2
         if x < 0:
             x = 0
@@ -602,23 +402,9 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         self.pop = x
 
     def gen_gov(self, roll):
-<<<<<<< HEAD
-        """Takes a dice roll (roll) and determines the mainworld government value (self.gov) and a function of population (self.pop)"""
-        logger.info("Generating government value for %s", self.worldname)
-        x = roll - 7 + self.pop
-        if self.pop == 0:
-            x = 0
-        logger.info("Result = %s", x)
-        self.gov = x
-
-    def gen_factions(self, roll):
-        """Determine the number and strength of factions in a mainworld government (Core Rules 2022 Update p254)"""
-        logger.info("Generating factions for %s", self.worldname)
-        factions = []
-=======
         '''Takes a dice roll (roll) and determines the mainworld government
             value (self.gov) and a function of population (self.pop)'''
-        logger.info('Generating government value for %s', self.worldname)
+        logger.info('Generating government value for %s', self.world_name)
         x = roll - 7 + self.pop
         if self.pop == 0:
             x = 0
@@ -628,20 +414,10 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     # def gen_factions(self, roll):
     #     '''Determine the number and strength of factions in a mainworld
     #         government (Core Rules 2022 Update p254)'''
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
     #     logger.info('Generating factions for %s', self.worldname)
     #     factions = []
 
-<<<<<<< HEAD
-        x = math.floor(roll / 2)
-        if self.gov in [0, 7]:
-            x += 1
-        if self.gov >= 10:
-            x -= 1
-
-        logger.info("Number of factions = %s", x)
-=======
     #     # First get the number of factions
 
     #     x = math.floor(roll / 2)
@@ -649,33 +425,16 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     #         x += 1
     #     if self.gov >= 10:
     #         x -= 1
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
     #     logger.info('Number of factions = %s', x)
 
     #     # Now determine the government type and strength of each faction
     #     # and store the details
 
-<<<<<<< HEAD
-            thisFactionGovType = D6Rollx2() - 7 + self.pop
-            if self.pop == 0:
-                thisFactionGovType = 0
-            logging.debug(
-                "Faction %s government type roll = %s", y + 1, thisFactionGovType
-            )
-            if thisFactionGovType < 0:
-                thisFactionGovType = 0
-            factionDetail = {
-                "Type": TR_Constants.GOVERNMENTS[thisFactionGovType],
-                "Strength": thisFactionStrength,
-            }
-            factions.append(factionDetail)
-=======
     #     for y in range(x):
     #         thisFactionStrength = D6Rollx2()
     #         logging.debug("Faction %s strength = %s", y + 1,
     #                       thisFactionStrength)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
     #         thisFactionGovType = D6Rollx2() - 7 + self.pop
     #         if self.pop == 0:
@@ -690,24 +449,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
     #                          "Strength": thisFactionStrength}
     #         factions.append(factionDetail)
 
-<<<<<<< HEAD
-    def gen_pMod(self, roll):
-        """Takes a dice roll (roll) and determines the population multiplier value (self.pMod)"""
-        logger.info("Generating population multiplier for %s", self.worldname)
-        x = roll - 2
-        if self.pop > 0 and x < 1:
-            x = 1
-        if self.pop == 0:
-            x = 0
-        if x == 10:
-            x = 9
-        logger.info("Result = %s", x)
-        self.pMod = x
-
-    def gen_law(self, roll):
-        """Takes a dice roll (roll) and determines the law level value (self.law) as a function of population (self.pop)"""
-        logger.info("Generating law level value for %s", self.worldname)
-=======
     #     logging.info("Factions determined: %s", factions)
     #     self.factions = factions
 
@@ -715,8 +456,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         '''Takes a dice roll (roll) and determines the law level value
             (self.law) as a function of population (self.pop)'''
 
-        logger.info('Generating law level value for %s', self.worldname)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+        logger.info('Generating law level value for %s', self.world_name)
         x = roll - 7 + self.gov
         if self.pop == 0:
             x = 0
@@ -724,16 +464,11 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         logger.info("Result = %s", x)
         self.law = x
 
-    def gen_starPort(self, roll):
-<<<<<<< HEAD
-        """Takes a dice roll (roll) and determines the starport type as a function of population (self.pop)"""
-        logger.info("Generating starport type for %s", self.worldname)
-=======
+    def gen_starport(self, roll):
         '''Takes a dice roll (roll) and determines the starport type as a
             function of population (self.pop)'''
 
-        logger.info('Generating starport type for %s', self.worldname)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+        logger.info('Generating starport type for %s', self.world_name)
         spRoll = roll - 7 + self.pop
 
         # Apply MGT modifiers based on mainworld population
@@ -741,11 +476,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         if self.pop in [8, 9]:
             spRoll += 1
         elif self.pop >= 10:
-<<<<<<< HEAD
-            spRoll + 2
-=======
             spRoll += 2
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         elif self.pop in [3, 4]:
             spRoll -= 1
         elif self.pop <= 2:
@@ -756,39 +487,22 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         if spRoll > 12:
             spRoll = 12
 
-<<<<<<< HEAD
-        logger.debug("Result = %s", spRoll)
-        logger.info(
-            "Mainworld starport type is %s", TR_Constants.STARPORTSTABLE[spRoll]
-        )
-=======
         logger.debug('Result = %s', spRoll)
         logger.info('Mainworld starport type is %s',
                     TR_Constants.STARPORTSTABLE[spRoll])
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
-        self.starPort = TR_Constants.STARPORTSTABLE[spRoll]
+        self.star_port = TR_Constants.STARPORTSTABLE[spRoll]
 
     def gen_tlv(self, roll, tlcap):
-<<<<<<< HEAD
-        """Takes a dice roll (roll) and determines the tech level value as a function of
-        size (self.siz), hydrographics (self.hyd), atmosphere (self.atm), population (self.pop) and
-        government (self.gov).
-
-        TL will be capped at the value passed in tlcap"""
-
-        logger.info("Generating tech level value for %s", self.worldname)
-=======
         '''Takes a dice roll (roll) and determines the tech level value as a
             function of size (self.siz), hydrographics (self.hyd),
             atmosphere (self.atm), population (self.pop) and
             government (self.gov).
             TL will be capped at the value passed in tlcap'''
 
-        logger.info('Generating tech level value for %s', self.worldname)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
-        if self.starPort in TR_Constants.STARPORTTLMOD:
-            roll += TR_Constants.STARPORTTLMOD.get(self.starPort)
+        logger.info('Generating tech level value for %s', self.world_name)
+        if self.star_port in TR_Constants.STARPORTTLMOD:
+            roll += TR_Constants.STARPORTTLMOD.get(self.star_port)
         if self.siz in TR_Constants.SIZETLMOD:
             roll += TR_Constants.SIZETLMOD.get(self.siz)
         if self.hyd in TR_Constants.HYDTLMOD:
@@ -814,23 +528,16 @@ class mainWorld(src.TR_Mainworld.mainWorld):
             minTL = 3
         else:
             minTL = 0
-<<<<<<< HEAD
-=======
 
         if roll < minTL:
             roll = minTL
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         # Finally, if population is zero, no TL
 
         if self.pop == 0:
             roll = 0
 
-<<<<<<< HEAD
-        logger.info("Result = %s", roll)
-=======
         logger.info('Result = %s', roll)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         self.tlv = roll
 
@@ -839,21 +546,15 @@ class mainWorld(src.TR_Mainworld.mainWorld):
             self.tlv = tlcap
 
     def gen_bases(self):
-<<<<<<< HEAD
-        """Takes 3 x dice rolls (roll1, roll2, roll3) and determines mainworld bases as a function of
-        starport type (self.starPort)"""
-        logger.info("Generating base codes for %s", self.worldname)
-=======
         '''Takes 3 x dice rolls (roll1, roll2, roll3) and determines mainworld
             bases as a function of starport type (self.starPort)'''
 
-        logger.info('Generating base codes for %s', self.worldname)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
+        logger.info('Generating base codes for %s', self.world_name)
 
         # Check for Naval bases
 
         nBase = False
-        if self.starPort == "A" or self.starPort == "B":
+        if self.star_port == "A" or self.star_port == "B":
             if D6Rollx2() >= 8:
                 nBase = True
             else:
@@ -862,34 +563,20 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         # Scout bases / outposts
 
         sBase = False
-        if self.starPort == "A":
-<<<<<<< HEAD
+        if self.star_port == "A":
             sBase = D6Rollx2() >= 10
-        if self.starPort == "B":
+        if self.star_port == "B":
             sBase = D6Rollx2() >= 9
-        if self.starPort == "C":
+        if self.star_port == "C":
             sBase = D6Rollx2() >= 8
-=======
-            sBase = (D6Rollx2() >= 10)
-        if self.starPort == "B":
-            sBase = (D6Rollx2() >= 9)
-        if self.starPort == "C":
-            sBase = (D6Rollx2() >= 8)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         # Pirate bases
 
         pBase = False
-        if self.starPort == "D":
-<<<<<<< HEAD
+        if self.star_port == "D":
             pBase = D6Rollx2() == 12
-        if self.starPort in ["E", "X"]:
+        if self.star_port in ["E", "X"]:
             pBase = D6Rollx2() >= 10
-=======
-            pBase = (D6Rollx2() == 12)
-        if self.starPort in ["E", "X"]:
-            pBase = (D6Rollx2() >= 10)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         # Format the base code
 
@@ -908,91 +595,15 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         logger.info("Result = %s", bCode)
         self.bases = bCode
 
-    def gen_travelZone(self, roll, isRandom):
+    def gen_travel_zone(self, roll, is_random):
         """Generate the mainworld travel zone"""
 
-        logger.info("Generating travel zone for %s", self.worldname)
+        logger.info("Generating travel zone for %s", self.world_name)
 
         travelZone = " "
 
         # Check for amber zone
 
-<<<<<<< HEAD
-        if (
-            (self.atm >= 10)
-            or (self.gov in [0, 7, 10])
-            or (self.law == 0)
-            or (self.law >= 9)
-        ):
-            logger.debug("Checking for amber zone based on atm, gov, law)")
-            if D6Roll() > 3:
-                logger.debug("Travel zone set to A")
-                travelZone = "A"
-
-        # Now add some random zone generation if the random flag is set
-
-        if isRandom and travelZone == " ":
-            logger.debug(
-                "Random travel zone generation is set, generating travel zones"
-            )
-            x = D6Rollx3()
-            logger.debug("Roll = %s", x)
-            if x >= 16:
-                travelZone = "A"
-            if x == 18:
-                travelZone = "R"
-
-        else:
-            logger.debug("Random travel zone generation is not set")
-        logger.info("Travel zone set to %s", travelZone)
-
-        self.travelZone = travelZone
-
-    def gen_nbelts(self, roll, roll2):
-        """Takes 2 x dice rolls (roll1, roll2) and determines the number of planetoid belts as a function of
-        size (self.siz)"""
-
-        logger.info("Generating planetoid belts for %s", self.worldname)
-
-        # Determine the presence of planetoid belts
-
-        nbelts = 0
-        if roll >= 4:
-            nbelts = roll2 - 3
-            if self.__siz == 0 and nbelts < 1:
-                nbelts = 1
-                logger.info(
-                    "Mainworld size is 0 but no belts present.  Setting number of belts to %s",
-                    nbelts,
-                )
-
-        logger.info("Result = %s", nbelts)
-        self.nbelts = nbelts
-
-    def gen_giants(self, roll):
-        """Check for the presence of gas giants"""
-        if roll < 10:
-            gas_giants = True
-        else:
-            gas_giants = False
-        self.gas_giants = gas_giants
-
-    def gen_ngiants(self, roll1, roll2):
-        """Takes 2 x dice rolls (roll1, roll2) and determines the number of gas giants"""
-
-        logger.info("Generating gas giants for %s", self.worldname)
-
-        # Determine the presence of gas giants
-
-        if D6Rollx2() >= 5:
-            ngiants = D6Roll() - 2
-            if ngiants < 1:
-                ngiants = 1
-        else:
-            ngiants = 0
-        logger.info("Result = %s", ngiants)
-        self.ngiants = ngiants
-=======
         if (self.atm >= 10) or (self.gov in [0, 7, 10]) or (self.law == 0) or \
            (self.law >= 9):
             logger.debug('Checking for amber zone based on atm, gov, law)')
@@ -1002,7 +613,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
 
         # Now add some random zone generation if the random flag is set
 
-        if isRandom and travelZone == ' ':
+        if is_random and travelZone == ' ':
             logger.debug('Random travel zone generation is set, generating \
                         travel zones')
             x = D6Rollx3()
@@ -1017,7 +628,7 @@ class mainWorld(src.TR_Mainworld.mainWorld):
 
         logger.info('Travel zone set to %s', travelZone)
 
-        self.travelZone = travelZone
+        self.travel_zone = travelZone
 
     def gen_belts(self, roll):
         if roll >= 10:
@@ -1032,29 +643,17 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         else:
             giants = False
         self.__giants = giants
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
     def gen_tradecodes(self):
         """Determines the mainworld trade codes from attribute values"""
 
-        logger.info("Determining trade codes for %s", self.worldname)
+        logger.info("Determining trade codes for %s", self.world_name)
 
         # Generate trade codes
 
         tcode = []
-<<<<<<< HEAD
-        if (
-            self.atm >= 4
-            and self.atm <= 9
-            and self.hyd >= 4
-            and self.hyd <= 8
-            and self.pop >= 5
-            and self.pop <= 7
-        ):
-=======
         if self.atm >= 4 and self.atm <= 9 and self.hyd >= 4 and self.hyd <= 8\
            and self.pop >= 5 and self.pop <= 7:
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
             tcode.append("Ag")
         if self.siz == 0 and self.atm == 0 and self.hyd == 0:
             tcode.append("As")
@@ -1064,19 +663,9 @@ class mainWorld(src.TR_Mainworld.mainWorld):
             tcode.append("De")
         if self.atm >= 10 and self.hyd >= 1:
             tcode.append("Fl")
-<<<<<<< HEAD
-        if (
-            self.atm in [5, 6, 8]
-            and self.hyd >= 4
-            and self.hyd <= 9
-            and self.pop >= 4
-            and self.pop <= 8
-        ):
-=======
         if self.atm in [5, 6, 8] and\
            self.hyd >= 4 and self.hyd <= 9 and\
            self.pop >= 4 and self.pop <= 8:
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
             tcode.append("Ga")
         if self.pop >= 9:
             tcode.append("Hi")
@@ -1106,52 +695,15 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         logger.info("Generated trade codes = %s", tcode)
         self.tradecodes = tcode
 
-<<<<<<< HEAD
-    def writemainWorldJSON(self):
-        """Write mainworld to a JSON document"""
-        outputJSON = {}
-        mainWorldJSON = {}
-        # mainWorldJSON['Name'] = self.subName
-        # mainWorldJSON['Position'] = self.subLetter
-=======
-    def createMainWorldJSON(self):
+    def create_mainworld_json(self):
         '''Create a JSON string that represents the mainworld data'''
 
         outputJSON = {}
         mainWorldJSON = {}
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         # Create the JSON header and populate
 
         headerJSON = {}
-<<<<<<< HEAD
-        headerJSON["Rules System"] = TR_MGT_Constants.TR_SYSTEM
-        headerJSON["Edition"] = TR_MGT_Constants.TR_SYSTEM_EDITION
-        headerJSON["Version"] = TR_MGT_Constants.TR_SYSTEM_VERSION
-        headerJSON["Extensions"] = TR_MGT_Constants.TR_SYSTEM_EXTENSIONS
-
-        outputJSON["Header"] = headerJSON
-
-        # Now write the mainworld data to a dictionary object
-
-        mainWorldJSON["Name"] = self.worldname
-        mainWorldJSON["UWP"] = str(self)
-        mainWorldJSON["Starport"] = self.starPort
-        mainWorldJSON["Size"] = self.siz
-        mainWorldJSON["Atmosphere"] = self.atm
-        mainWorldJSON["Hydrographics"] = self.hyd
-        mainWorldJSON["Population"] = self.pop
-        mainWorldJSON["Goverment"] = self.gov
-        mainWorldJSON["Government Factions"] = self.factions
-        mainWorldJSON["Law Level"] = self.law
-        mainWorldJSON["Tech Level"] = self.tlv
-        mainWorldJSON["Gas Giants"] = self.gas_giants
-        mainWorldJSON["Bases"] = self.bases
-        mainWorldJSON["Trade Codes"] = self.tradecodes
-        # mainWorldJSON["Population Modifier"] = self.pMod
-        # mainWorldJSON["Planetoid Belts"] = self.nbelts
-        # mainWorldJSON["Gas Giants"] = self.ngiants
-=======
         headerJSON['Rules System'] = TR_MGT_Constants.TR_SYSTEM
         headerJSON['Edition'] = TR_MGT_Constants.TR_SYSTEM_EDITION
         headerJSON['Version'] = TR_MGT_Constants.TR_SYSTEM_VERSION
@@ -1161,9 +713,9 @@ class mainWorld(src.TR_Mainworld.mainWorld):
 
         # Now write the mainworld data to a dictionary object
 
-        mainWorldJSON['Name'] = self.worldname
+        mainWorldJSON['Name'] = self.world_name
         mainWorldJSON['UWP'] = str(self)
-        mainWorldJSON['Starport'] = self.starPort
+        mainWorldJSON['Starport'] = self.star_port
         mainWorldJSON['Size'] = self.siz
         mainWorldJSON['Atmosphere'] = self.atm
         mainWorldJSON['Hydrographics'] = self.hyd
@@ -1181,7 +733,6 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         extensionData = {}
 
         mainWorldJSON['Extension Data'] = extensionData
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
         # Assemble the document parts
 
@@ -1192,9 +743,9 @@ class mainWorld(src.TR_Mainworld.mainWorld):
 
     # Randomly generate a mainworld object
 
-    def genWorld(self):
+    def gen_world(self):
         """Generate attribute values for a mainworld object"""
-        logger.info("Generating world data for %s", self.worldname)
+        logger.info("Generating world data for %s", self.world_name)
 
         # Generate world data
 
@@ -1205,52 +756,36 @@ class mainWorld(src.TR_Mainworld.mainWorld):
         self.gen_temperature(D6Rollx2())
         self.gen_hyd(D6Rollx2())
         self.gen_pop(D6Rollx2())
-<<<<<<< HEAD
-        #        self.gen_pMod(D6Rollx2())
-=======
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
         self.gen_gov(D6Rollx2())
         self.gen_law(D6Rollx2())
-        self.gen_starPort(D6Rollx2())
+        self.gen_starport(D6Rollx2())
         self.gen_tlv(D6Roll(), TR_MGT_Constants.TL_CAP)
         self.gen_giants(D6Rollx2())
         self.gen_bases()
-        self.gen_travelZone(D6Rollx2, True)
-<<<<<<< HEAD
-        #        self.gen_nbelts(D6Rollx2(), D6Roll())
-        #        self.gen_ngiants(D6Rollx2(), D6Roll())
-        self.gen_tradecodes()
-
-=======
+        self.gen_travel_zone(D6Rollx2, True)
         self.gen_belts(D6Rollx2())
         self.gen_giants(D6Rollx2())
         self.gen_tradecodes()
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110
 
 # Only execute if this code is called directly - used proimarily to debug
 # output values
 
 
 if __name__ == "__main__":
-    w = mainWorld("Aworld")
+    w = MainWorld("Aworld")
     w.loc = "0101"
-    w.genWorld()
+    w.gen_world()
 
-<<<<<<< HEAD
-    print(w)
-    print(w.writemainWorldJSON())
-=======
     # Test write JSON to file
 
-    outJSON = w.createMainWorldJSON()
+    outJSON = w.create_mainworld_json()
 
-    with open('output.json', 'w') as json_file:
+    with open('output.json', 'w', encoding="utf-8") as json_file:
         json_file.write(outJSON)
 
     # Test read JSON from file
 
-    with open('output.json', 'r') as json_file:
+    with open('output.json', 'r', encoding="utf-8") as json_file:
         inputJSON = json_file.read()
 
     print(inputJSON)
->>>>>>> 1dcaf91f4f60fede42105ff9df61a6beb4e1b110

@@ -4,10 +4,10 @@
     Abstract class to support future implementation of multiple generation
     systems using an object factory
 '''
-
-import abc
+# pylint: disable=invalid-name
 from abc import ABC, abstractmethod
 import logging
+# pylint: enable=invalid-name
 
 # Configure logging
 
@@ -23,73 +23,87 @@ logger.setLevel(logging.CRITICAL)
 # mainWorld abstract class
 
 
-class mainWorld(ABC):
+class MainWorld(ABC):
 
     # Define properties
 
-    @abc.abstractproperty
-    def worldname(self):
+    @property
+    @abstractmethod
+    def world_name(self):
         return self.__worldname
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def loc(self):
         return self.__loc
-
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def siz(self):
         return self.__siz
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def atm(self):
         return self.__atm
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def hyd(self):
         return self.__hyd
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def pop(self):
         return self.__pop
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def gov(self):
         return self.__gov
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def law(self):
         return self.__law
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def tlv(self):
         return self.__tlv
 
-    @abc.abstractproperty
-    def starPort(self):
-        return self.__starPort
+    @property
+    @abstractmethod
+    def star_port(self):
+        return self.__star_port
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def bases(self):
         return self.__bases
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def belts(self):
         return self.__belts
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def giants(self):
         return self.__giants
 
-    @abc.abstractproperty
-    def travelZone(self):
-        return self.__travelZone
+    @property
+    @abstractmethod
+    def travel_zone(self):
+        return self.__travel_zone
 
-    @abc.abstractproperty
+    @property
+    @abstractmethod
     def tradecodes(self):
         return self.__tradecodes
 
 # Define setters, including checks
-    @worldname.setter
-    def worldname(self, worldname):
+    @world_name.setter
+    def world_name(self, worldname):
         self.__worldname = worldname
 
     @loc.setter
@@ -124,9 +138,9 @@ class mainWorld(ABC):
     def tlv(self, tlv):
         self.__tlv = tlv
 
-    @starPort.setter
-    def starPort(self, starPort):
-        self.__starPort = starPort
+    @star_port.setter
+    def star_port(self, star_port):
+        self.__star_port = star_port
 
     @belts.setter
     def belts(self, belts):
@@ -140,9 +154,9 @@ class mainWorld(ABC):
     def bases(self, bases):
         self.__bases = bases
 
-    @travelZone.setter
-    def travelZone(self, travelZone):
-        self.__travelZone = travelZone
+    @travel_zone.setter
+    def travel_zone(self, travel_zone):
+        self.__travel_zone = travel_zone
 
     @tradecodes.setter
     def tradecodes(self, tradecodes):
@@ -150,15 +164,15 @@ class mainWorld(ABC):
 
 # Initialise the world class
 
-    def __init__(self, wName):
+    def __init__(self, world_name):
         '''Takes a world name (wName) and initialises a mainworld object
             with that world name (self.worldname)'''
 
-        logger.debug('Initialising world object with name %s', wName)
+        logger.debug('Initialising world object with name %s', world_name)
 
         # Initialise variables
 
-        self.worldname = wName
+        self.world_name = world_name
 
     # Display the mainworld object as a string
 
@@ -196,7 +210,7 @@ class mainWorld(ABC):
         pass
 
     @abstractmethod
-    def gen_starPort(self, roll):
+    def gen_starport(self, roll):
         pass
 
     @abstractmethod
@@ -208,7 +222,7 @@ class mainWorld(ABC):
         pass
 
     @abstractmethod
-    def gen_travelZone(self, roll, isRandom):
+    def gen_travel_zone(self, roll, is_random):
         pass
 
     @abstractmethod
@@ -216,7 +230,7 @@ class mainWorld(ABC):
         pass
 
     @abstractmethod
-    def gen_giants(self, roll1, roll2):
+    def gen_giants(self, roll):
         pass
 
     @abstractmethod
@@ -224,11 +238,11 @@ class mainWorld(ABC):
         pass
 
     @abstractmethod
-    def createMainWorldJSON(self):
+    def create_mainworld_json(self):
         pass
 
 # Randomly generate a mainworld object
 
     @abstractmethod
-    def genWorld(self):
+    def gen_world(self):
         pass
