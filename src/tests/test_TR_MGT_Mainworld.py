@@ -1,8 +1,13 @@
-# from random import sample
+'''
+    test_TR_MGT_Mainworld.py
+
+    Abstract class to support future implementation of multiple generation
+    systems using an object factory
+'''
 
 # pylint: disable=invalid-name
-import pytest
-from src.TR_MGT_Mainworld import MainWorld
+
+from src.tr_mgt_mainword import MainWorld
 from src.utils.TR_MGT_Constants import TL_CAP
 # pylint: enable=invalid-name
 

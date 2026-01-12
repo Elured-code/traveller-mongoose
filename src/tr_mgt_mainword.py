@@ -1,4 +1,9 @@
-# pylint: disable=invalid-name
+'''
+    Ttr_mgt_mainworld.py
+
+    Generate a mainworld using the MGTv2 generation system
+'''
+
 import json
 import logging
 from src.utils import TR_Constants, TR_MGT_Constants
@@ -18,10 +23,10 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.CRITICAL)
 
-# mainWorld class - holds the world details as defined in the CE SRD
-
 class MainWorld(TR_Mainworld.MainWorld):
-
+    '''
+        MainWorld class - holds the world details as defined in the MGT v2 core ruleset
+    '''
     # Define properties
 
     @property
